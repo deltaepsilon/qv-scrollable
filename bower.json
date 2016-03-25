@@ -1,18 +1,18 @@
 {
   "name": "qv-scrollable",
-  "version": "1.0.7",
+  "version": "1.0.0",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Chris Esplin <chris@quiver.is>"
   ],
-  "description": "An element providing a solution to no problem in particular.",
+  "description": "An element for creating scroll areas with a little sugar",
   "keywords": [
     "web-component",
     "polymer",
-    "seed"
+    "quiver"
   ],
   "main": "qv-scrollable.html",
-  "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "license": "https://github.com/deltaepsilon/qv-scrollable/blob/master/LICENSE",
+  "homepage": "http://deltaepsilon.github.io/qv-scrollable/components/qv-scrollable/",
   "ignore": [
     "/.*",
     "/test/"
