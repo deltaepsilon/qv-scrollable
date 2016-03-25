@@ -2,4 +2,6 @@
 
 Install with ```bower install --save qv-scrollable```.
 
-# See the docs
+# Read the docs
+
+[<qv-scrollable>](http://deltaepsilon.github.io/qv-scrollable/components/qv-scrollable/)
