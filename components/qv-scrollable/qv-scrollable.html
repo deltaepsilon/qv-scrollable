@@ -1,0 +1,140 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+An element for creating scroll areas with a little sugar.
+
+Example:
+
+    <qv-scrollable></qv-scrollable>
+
+Example:
+
+    <qv-scrollable style="height: calc(100vh - 5rem); border-color: gold;" pinned-buffer="100">
+      <h2>Hello qv-scrollable</h2>
+    </qv-scrollable>
+
+@demo demo/index.html
+@hero hero.svg
+-->
+
+<dom-module id="qv-scrollable">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        overflow-y: auto;
+      }
+      
+      :host[scrolled-down] {
+        border-top: 1px solid;
+      }
+      
+      :host[scrolled-up] {
+        border-bottom: 1px solid;
+      }
+    </style>
+    <content></content>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'qv-scrollable',
+
+      properties: {
+        /**
+         * `scrolledUp` indicates that the scrollable area has been scrolled up.
+         */
+        scrolledUp: {
+          type: Boolean,
+          value: false,
+          notify: true,
+          reflectToAttribute: true
+        },
+
+        /**
+         * `scrolledDown` indicates that the scrollable area has been scrolled down.
+         */
+        scrolledDown: {
+          type: Boolean,
+          value: true,
+          notify: true,
+          reflectToAttribute: true
+        },
+        
+        /**
+         * `pinnedTop` indicates whether or not the scroll area is pinned to the top.
+         */
+        pinnedTop: {
+          type: Boolean,
+          value: true,
+          notify: true,
+          reflectToAttribute: true
+        },
+        
+        /**
+         * `pinnedBottom` indicates whether or not the scroll area is pinned to the bottom.
+         */
+        pinnedBottom: {
+          type: Boolean,
+          value: false,
+          notify: true,
+          reflectToAttribute: true
+        },
+        
+        /**
+         * `buffer` indicates how many pixels away from the bottom the scroll
+         * can be and still be considered "pinned".
+         */
+        buffer: {
+          value: Number,
+          value: 0
+        }
+      },
+
+      attached: function() {
+        var el = this;
+        var scrollable = this;
+        var scrollTop = scrollable.scrollTop;
+        var handleScroll = function() {
+          el.debounce('scrollHandler', function() {
+            var maxScrollTop = scrollable.scrollHeight - scrollable.clientHeight;
+            if (scrollTop > scrollable.scrollTop) {
+              if (el.pinnedBottom) {
+                el.set('pinnedBottom', false);
+              }
+            } else if (!el.pinnedBottom) {
+              if (scrollable.scrollTop >= maxScrollTop - el.buffer) {
+                el.set('pinnedBottom', true);
+              }
+            }
+            if (scrollTop < scrollable.scrollTop) {
+              if (el.pinnedTop) {
+                el.set('pinnedTop', false);
+              }
+            } else if (!el.pinnedTop) {
+              if (scrollable.scrollTop <= 0 + el.buffer) {
+                el.set('pinnedTop', true);
+              }
+            }
+            el.set('scrolledUp', scrollable.scrollTop < maxScrollTop);
+            el.set('scrolledDown', scrollable.scrollTop > 0);
+            scrollTop = scrollable.scrollTop;
+          });
+        };
+        scrollable.addEventListener('scroll', handleScroll);
+        handleScroll();
+      },
+    });
+  </script>
+</dom-module>

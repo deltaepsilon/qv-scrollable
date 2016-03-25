@@ -1,0 +1,26 @@
+{
+  "name": "qv-scrollable",
+  "version": "1.0.0",
+  "authors": [
+    "Chris Esplin <chris@quiver.is>"
+  ],
+  "description": "An element for creating scroll areas with a little sugar",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "quiver"
+  ],
+  "main": "qv-scrollable.html",
+  "license": "https://github.com/deltaepsilon/qv-scrollable/blob/master/LICENSE",
+  "homepage": "http://deltaepsilon.github.io/qv-scrollable/components/qv-scrollable/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0"
+  }
+}
